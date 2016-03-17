@@ -5,29 +5,22 @@
  *
  * Once you have your password you will then be able to use it in
  * examplefunctional.php to actually send and receive messages.
- *
  */
+require_once '../src/Registration.php';
 
-
-require_once('../src/whatsprot.class.php');
-
-/**
+/*
  * Config data.
  */
 $debug = true;
+$username = '34666554433';   // Telephone number including the country code without '+' or '00'.
 
-$username = '34666554433';                      // Telephone number including the country code without '+' or '00'.
-$identity = 'e807f1fcf82d132f9bb018ca6738a19f'; // Obtained during registration with this API or using MissVenom (https://github.com/shirioko/MissVenom) to sniff from your phone.
-$nickname = 'John Doe';                         // This is the username displayed by WhatsApp clients.
-
-
-// Create a instance of WhastPort.
-$w = new WhatsProt($username, $identity, $nickname, $debug);
+// Create an instance of Registration.
+$w = new Registration($username, $debug);
 
 // How to create an account __ONLY__ if you do not have a associated to our phone number.
 // You can test your credentials with: $w->checkCredentials() (BUT ONLY ONLY IF YOU HAVE THE IDENTITY);
 
-/**
+/*
  * First request a registration code from WhatsApp.
  *
  * @param $method
@@ -47,14 +40,12 @@ $w = new WhatsProt($username, $identity, $nickname, $debug);
  */
 $w->codeRequest('sms');
 
-
 // You must wait until you receive a code from WhatsApp, either to your phone via sms
 // or phonecall depending on what you selected above.
 
 // The function below will only work once you know your code!
 
-
-/**
+/*
  * Second register account on WhatsApp using the provided code with $w->codeRequest();.
  *
  * @param integer $code
